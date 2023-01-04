@@ -12,6 +12,9 @@
 #include "../FEATURES/Configurations.h"
 
 #include "Menu.h"
+#include <bass.h>
+#include "../includes/sounds.h"
+
 
 namespace PPGUI
 {
@@ -19,6 +22,7 @@ namespace PPGUI
 	{
 		void Do()
 		{
+
 			auto SetColor = []() -> void
 			{
 				const auto theme_color = HELPERS::PPGUI_Color::HotPink();
@@ -276,12 +280,12 @@ namespace PPGUI
 			PPGUI_BeginFrame();
 
 			/// Menu toggle
-			static bool menu_open = false;
 			if (menu.GetInput().DidClickKey(VK_INSERT))
 			{
 				menu_open = !menu_open;
+				BASS::open = !BASS::open;
 
-				INTERFACES::Engine->ClientCmd(menu_open ? "cl_mouseenable 0" : "cl_mouseenable 1");
+				//INTERFACES::Engine->ClientCmd(menu_open ? "cl_mouseenable 0" : "cl_mouseenable 1");
 				INTERFACES::InputSystem->EnableInput(!menu_open);
 			}
 
@@ -293,50 +297,11 @@ namespace PPGUI
 
 			/// Draw mouse
 			PPGUI_DrawMouse();
-		
-			/// Skin changer
-			PPGUI_BeginWindow("Skins", HELPERS::PPGUI_Vector2D(1100, 200), HELPERS::PPGUI_Vector2D(400, 230));
-			{
-				PPGUI_SetColumn(1);
-
-				static int selected_weapon = 0;
-				PPGUI_Combobox("Weapons", FEATURES::MISC::skin_changer.NUM_WEAPONS, FEATURES::MISC::skin_changer.weapons_list, selected_weapon, false);
-
-				PPGUI_Combobox("Skin", FEATURES::MISC::skin_changer.NUM_SKINS, FEATURES::MISC::skin_changer.skins_list, SETTINGS::skin_configs.weapon_skin[selected_weapon], false);
-
-				PPGUI_Combobox("Quality", FEATURES::MISC::skin_changer.NUM_QUALITIES, FEATURES::MISC::skin_changer.qualities_list, SETTINGS::skin_configs.weapon_quality[selected_weapon], false);
-
-				PPGUI_Slider("Wear", "", 0.f, 1.f, SETTINGS::skin_configs.weapon_wear[selected_weapon], 2, false);
-
-				PPGUI_Slider("Seed", "", 0.f, 1000.f, SETTINGS::skin_configs.weapon_seed[selected_weapon], 0, false);
-
-				if (PPGUI_Checkbox("StatTrak", SETTINGS::skin_configs.weapon_stat_trak_enabled[selected_weapon], false))
-				{
-					PPGUI_SameLine();
-					PPGUI_Slider("Kills", "", 0.f, 99999.f, SETTINGS::skin_configs.weapon_stat_trak_kills[selected_weapon], 0, false);
-				}
-
-				PPGUI_TextInput("Custom name", SETTINGS::skin_configs.weapon_custom_name[selected_weapon], false);
-
-				if (PPGUI_Button("Update", false))
-					INTERFACES::Engine->ForceFullUpdate();
-
-				PPGUI_SameLine();
-				if (PPGUI_Button("Save", false))
-					SETTINGS::skin_configs.Save("skins_config.scfg", sizeof(SETTINGS::SkinConfig));
-
-				PPGUI_SameLine();
-				if (PPGUI_Button("Load", false))
-				{
-					SETTINGS::skin_configs.Load("skins_config.scfg", sizeof(SETTINGS::SkinConfig));
-					INTERFACES::Engine->ForceFullUpdate();
-				}
-			} PPGUI_EndWindow();
-
 
 			/// Main window
 			PPGUI_BeginWindow("chadhook", HELPERS::PPGUI_Vector2D(200, 200), HELPERS::PPGUI_Vector2D(800, 600), 2);
 			{
+
 				/// Main tabs
 				static char main_tabs[][PPGUI_MAX_STRING_LENGTH] =
 				{
@@ -383,17 +348,17 @@ namespace PPGUI
 								"Enabled",
 							};
 
-							PPGUI_Combobox("Autostop", 2, autostop_types, SETTINGS::ragebot_configs.aimbot_autostop_type, false);
+							//PPGUI_Combobox("Autostop", 2, autostop_types, SETTINGS::ragebot_configs.aimbot_autostop_type, false);
 							if (SETTINGS::ragebot_configs.aimbot_autostop_type == 1)
 							{
-								PPGUI_Slider("Trigger##trigger damage", "dmg", 0.f, 110.f, SETTINGS::ragebot_configs.aimbot_autostop_damage_trigger, 0, false);
+								//PPGUI_Slider("Trigger##trigger damage", "dmg", 0.f, 110.f, SETTINGS::ragebot_configs.aimbot_autostop_damage_trigger, 0, false);
 								PPGUI_ToolTip("The damage needed to be able to give before autostop will enable");
 							}
 							else
 							{
 								PPGUI_Disable();
 								PPGUI_AlphaModulate(0.2f);
-								PPGUI_Slider("Trigger##trigger damage", "dmg", 0.f, 110.f, SETTINGS::ragebot_configs.aimbot_autostop_damage_trigger, 0, false);
+								//PPGUI_Slider("Trigger##trigger damage", "dmg", 0.f, 110.f, SETTINGS::ragebot_configs.aimbot_autostop_damage_trigger, 0, false);
 							}
 
 
@@ -1230,9 +1195,7 @@ namespace PPGUI
 
 						PPGUI_Checkbox("Enabled##clan tag changer enabled", SETTINGS::main_configs.clantag_changer_enabled, false);
 						{
-							PPGUI_TextInput("Name##clan tag changer name", SETTINGS::main_configs.clantag_changer_text, false);
-							if (PPGUI_Combobox("Style##clan tag changer style", 3, clan_tag_changer_styles, SETTINGS::main_configs.clantag_changer_style, false) != 0)
-								PPGUI_Slider("Speed", "", SETTINGS::main_configs.clantag_changer_style == 2 ? 0.f : -1.f, 1.f, SETTINGS::main_configs.clantag_changer_speed, 2, false);
+
 						}
 					} PPGUI_EndGroupbox();
 
@@ -1262,6 +1225,24 @@ namespace PPGUI
 						}
 
 						PPGUI_Slider("In-air##fakelag in air", "", 1.f, 14.f, SETTINGS::main_configs.fakelag_jumping, 0, false);
+					} PPGUI_EndGroupbox();
+					PPGUI_BeginGroupbox("Sounds", 160);
+					{
+						PPGUI_Separator("Music", false);
+						PPGUI_Slider("Radio volume##volume-music", "", 0.f, 1.f, BASS::vol23, 2, false);
+						static char channelsz[][PPGUI_MAX_STRING_LENGTH] =
+						{
+							"Off",
+							"Rock",
+							"Techno",
+							"HvH",
+							"Teatime",
+							"Clubtime",
+							"Housetime",
+							"Iluvradio",
+							"8bit"
+						};
+						PPGUI_Combobox("Radio channel", 8, channelsz, desired_channel, true);
 					} PPGUI_EndGroupbox();
 
 					break;

@@ -495,6 +495,7 @@ namespace FEATURES
 			if (resolve_type & RESOLVE_TYPE_ANTI_FREESTANDING)
 				resolve_strings.push_back(enc_str("ANTI FREESTAND"));
 
+
 			if (resolve_strings.size() <= 0)
 				return "GAY";
 

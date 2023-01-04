@@ -71,7 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(SolutionDir)Bameware Recode\LIBS\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Users\Administrator\Desktop\Bameware 2018\Bameware\includes;$(SolutionDir)Bameware Recode\LIBS\;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Administrator\Desktop\Bameware 2018\Bameware;C:\Users\Administrator\Desktop\Bameware 2018\Bameware\includes;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -120,6 +121,7 @@
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -136,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dll.cpp" />
     <ClCompile Include="FEATURES\Aimbot.cpp" />
     <ClCompile Include="FEATURES\Antiaim.cpp" />
     <ClCompile Include="FEATURES\Autostrafer.cpp" />
@@ -159,7 +162,16 @@
     <ClCompile Include="FEATURES\Visuals.cpp" />
     <ClCompile Include="FEATURES\VisualsMisc.cpp" />
     <ClCompile Include="FEATURES\World Textures.cpp" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_demo.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="imgui\imgui_impl_dx9.cpp" />
+    <ClCompile Include="imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui\imgui_tables.cpp" />
+    <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="includes\sounds.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="misc\fonts\binary_to_compressed_c.cpp" />
     <ClCompile Include="PPGUI Framework\Menu.cpp" />
     <ClCompile Include="PPGUI Framework\PPGUI.cpp" />
     <ClCompile Include="PPGUI Framework\PPGUI_Commands.cpp" />
@@ -180,6 +192,7 @@
     <ClCompile Include="UTILS\vmt.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="dll.h" />
     <ClInclude Include="FEATURES\Aimbot.h" />
     <ClInclude Include="FEATURES\AntiAim.h" />
     <ClInclude Include="FEATURES\Autostrafer.h" />
@@ -204,7 +217,22 @@
     <ClInclude Include="FEATURES\Visuals.h" />
     <ClInclude Include="FEATURES\VisualsMisc.h" />
     <ClInclude Include="FEATURES\World Textures.h" />
+    <ClInclude Include="imgui stuff.h" />
+    <ClInclude Include="imgui\imconfig.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_impl_dx9.h" />
+    <ClInclude Include="imgui\imgui_impl_win32.h" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\imstb_rectpack.h" />
+    <ClInclude Include="imgui\imstb_textedit.h" />
+    <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="includes.h" />
+    <ClInclude Include="api.h" />
+    <ClInclude Include="includes\bass.h" />
+    <ClInclude Include="includes\detours.h" />
+    <ClInclude Include="includes\random.h" />
+    <ClInclude Include="includes\sounds.h" />
+    <ClInclude Include="includes\string_obfuscation.h" />
     <ClInclude Include="PPGUI Framework\Menu.h" />
     <ClInclude Include="PPGUI Framework\PPGUI.h" />
     <ClInclude Include="PPGUI Framework\PPGUI_Commands.h" />
@@ -265,6 +293,24 @@
     <ClInclude Include="UTILS\vector3D.h" />
     <ClInclude Include="UTILS\vmatrix.h" />
     <ClInclude Include="UTILS\vmt.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="includes\bass.lib" />
+    <Library Include="includes\detours.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="includes\detours.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Cousine-Regular.ttf" />
+    <Font Include="DroidSans.ttf" />
+    <Font Include="Glyphter.ttf" />
+    <Font Include="icomoon.ttf" />
+    <Font Include="Karla-Regular.ttf" />
+    <Font Include="Museo Sans Cyrl 700.ttf" />
+    <Font Include="ProggyClean.ttf" />
+    <Font Include="ProggyTiny.ttf" />
+    <Font Include="Roboto-Medium.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

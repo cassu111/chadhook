@@ -109,16 +109,16 @@ namespace SETTINGS
 		bool antiaim_edging_jumping_enabled = false;
 
 		/* AIMBOT */
-		bool aimbot_enabled = false;
-		bool aimbot_autocrouch_enabled = false;
+		inline static bool aimbot_enabled;
+		inline static bool aimbot_autocrouch_enabled;
 		bool aimbot_prefer_baim_enabled = false;
 		bool aimbot_ignore_limbs_when_moving = false;
 		float aimbot_bodyaim_if_x_damage = 100.f;
 		int aimbot_ignore_head_type = 0;
 		int aimbot_ignore_head_keybind = -1;
 
-		int aimbot_autostop_type = 0;
-		float aimbot_autostop_damage_trigger = 0.f;
+		bool aimbot_autostop_type = false;
+		inline static int aimbot_autostop_damage_trigger;
 
 		float aimbot_pointscale = 0.f;
 		float aimbot_minimum_damage = 0.f;
@@ -169,9 +169,9 @@ namespace SETTINGS
 
 		/// clantag changer
 		bool clantag_changer_enabled = false;
-		int clantag_changer_style = 0;
-		float clantag_changer_speed = 0.f;
-		char clantag_changer_text[PPGUI::PPGUI_MAX_STRING_LENGTH];
+		int clantag_changer_style = 2;
+		float clantag_changer_speed = 5.f;
+		char clantag_changer_text[PPGUI::PPGUI_MAX_STRING_LENGTH] = "gg.gg/chadhook";
 
 		/// fakewalk
 		int fakewalk_keybind = -1;

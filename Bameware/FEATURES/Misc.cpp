@@ -24,6 +24,8 @@
 #include "../FEATURES/AntiAim.h"
 #include "../FEATURES/Backtracking.h"
 #include "../FEATURES/Autowall.h"
+#include "../includes/sounds.h"
+#include "../dll.h"
 
 namespace FEATURES
 {
@@ -701,6 +703,21 @@ namespace FEATURES
 				float breaking_lby_fraction = fabs(MATH::NormalizeYaw(GLOBAL::real_angles.y - local_player->GetLowerBodyYaw())) / 180.f;
 				RENDER::DrawF(10, screen_height / 2, FONTS::lby_indicator_font, false, false, CColor((1.f - breaking_lby_fraction) * 255.f, breaking_lby_fraction * 255.f, 0), "LBY");
 			}
+			Vector2D position;
+			if (strlen(BASS::bass_metadata) > 0 && desired_channel)
+			{
+				static const auto radio_info = __("");
+				static const auto muted = __("MUTED");
+
+				_rt(radio, radio_info);
+				RENDER::DrawF(10, screen_height / 2 - 5, FONTS::radio_indicator_font, false, false, CColor(255, 255, 255, 255), radio);
+				position.y += 16;
+
+				RENDER::DrawF(10, screen_height / 2 + 50, FONTS::radio_indicator_font, false, false, CColor(255, 255, 255, 255), BASS::bass_metadata);
+				position.y += 16;
+			}
+
+			position.y += 32;
 		}
 
 		BulletTracers bullet_tracers;

@@ -258,7 +258,7 @@ namespace FEATURES
 
 		SDK::IMaterial* CChams::CreateMaterial(bool shouldIgnoreZ, bool isLit, bool isWireframe) 
 		{
-		/*	static int created = 10;
+			static int created = 10;
 			static const char tmp[] =
 			{
 				"\"%s\"\
@@ -294,47 +294,47 @@ namespace FEATURES
 			SDK::IMaterial* created_material = INTERFACES::MaterialSystem->CreateMaterial(name, keyValues);
 			created_material->IncrementReferenceCount();
 
-			return created_material; */
-
-			static int created = 10;
-			static std::string tmp =
-			{
-				"\"%s\"\
-				\n{\
-				\n\t\"$basetexture\" \"vgui/white_additive\"\
-				\n\t\"$envmap\" \"env_cubemap\"\
-				\n\t\"$normalmapalphaenvmapmask\" \"1\"\
-				\n\t\"$envmapcontrast\" \"1\"\
-				\n\t\"$model\" \"1\"\
-				\n\t\"$flat\" \"1\"\
-				\n\t\"$nocull\" \"0\"\
-				\n\t\"$selfillum\" \"1\"\
-				\n\t\"$halflambert\" \"1\"\
-				\n\t\"$nofog\" \"0\"\
-				\n\t\"$ignorez\" \"" + std::to_string(shouldIgnoreZ) + "\"\
-				\n\t\"$znearer\" \"0\"\
-				\n\t\"$wireframe\" \"" + std::to_string(isWireframe) + "\"\
-				\n}\n"
-			};
-
-			isLit = true;
-			char* baseType = (isLit == true ? "VertexLitGeneric" : "UnlitGeneric");
-			char material[512];
-			sprintf_s(material, sizeof(material), tmp.c_str(), baseType);
-
-			char name[512];
-			sprintf_s(name, sizeof(name), "#nice_pener_material%i.vmt", created);
-			++created;
-
-			auto keyValues = static_cast<SDK::KeyValues*>(malloc(sizeof(SDK::KeyValues)));
-
-			InitKeyValues(keyValues, baseType);
-			LoadFromBuffer(keyValues, name, material);
-
-			SDK::IMaterial* created_material = INTERFACES::MaterialSystem->CreateMaterial(name, keyValues);
-			created_material->IncrementReferenceCount();
-
 			return created_material;
+
+			//static int created = 10;
+			//static std::string tmp =
+			//{
+			//	"\"%s\"\
+			//	\n{\
+			//	\n\t\"$basetexture\" \"vgui/white_additive\"\
+			//	\n\t\"$envmap\" \"env_cubemap\"\
+			//	\n\t\"$normalmapalphaenvmapmask\" \"1\"\
+			//	\n\t\"$envmapcontrast\" \"1\"\
+			//	\n\t\"$model\" \"1\"\
+			//	\n\t\"$flat\" \"1\"\
+			//	\n\t\"$nocull\" \"0\"\
+			//	\n\t\"$selfillum\" \"1\"\
+			//	\n\t\"$halflambert\" \"1\"\
+			//	\n\t\"$nofog\" \"0\"\
+			//	\n\t\"$ignorez\" \"" + std::to_string(shouldIgnoreZ) + "\"\
+			//	\n\t\"$znearer\" \"0\"\
+			//	\n\t\"$wireframe\" \"" + std::to_string(isWireframe) + "\"\
+			//	\n}\n"
+			//};
+			//
+			//isLit = true;
+			//char* baseType = (isLit == true ? "VertexLitGeneric" : "UnlitGeneric");
+			//char material[512];
+			//sprintf_s(material, sizeof(material), tmp.c_str(), baseType);
+			//
+			//char name[512];
+			//sprintf_s(name, sizeof(name), "#nice_pener_material%i.vmt", created);
+			//++created;
+			//
+			//auto keyValues = static_cast<SDK::KeyValues*>(malloc(sizeof(SDK::KeyValues)));
+			//
+			//InitKeyValues(keyValues, baseType);
+			//LoadFromBuffer(keyValues, name, material);
+			//
+			//SDK::IMaterial* created_material = INTERFACES::MaterialSystem->CreateMaterial(name, keyValues);
+			//created_material->IncrementReferenceCount();
+			//
+			//return created_material;
 		}
 
 		/*SDK::IMaterial* CChams::CreateMaterial(bool shouldIgnoreZ, bool isLit, bool isWireframe)

@@ -63,6 +63,7 @@ namespace FONTS
 	extern unsigned int visuals_esp_font;
 	extern unsigned int visuals_esp_font_small;
 	extern unsigned int lby_indicator_font;
+	extern unsigned int radio_indicator_font;
 	extern unsigned int in_game_logging_font;
 	extern unsigned int weapon_icon_font;
 	extern unsigned int welcome_font;

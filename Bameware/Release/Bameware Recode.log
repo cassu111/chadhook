@@ -1,4 +1,3 @@
-﻿  NetvarManager.cpp
-  hooks.cpp
-  interfaces.cpp
+﻿  imgui_demo.cpp
+  main.cpp
   Bameware Recode.vcxproj -> C:\Users\Administrator\Desktop\Bameware 2018\Bameware\Release\Bameware Legacy.dll
